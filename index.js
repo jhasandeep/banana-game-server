@@ -99,7 +99,7 @@ app.get("/", (req,res)=>{
 
   res.status(200).json({success:true, message:"hello world"})
 })
-
-server.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
+const Port = process.env.PORT || 5000
+server.listen(Port, () =>
+  console.log(`Server running on port ${Port}`)
 );
