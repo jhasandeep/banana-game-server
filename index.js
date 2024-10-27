@@ -15,10 +15,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://locahost:3000",
+    origin: "http://localhost:3000", // or "*" for all origins
     methods: ["GET", "POST"],
-    Credential: true,
-  },
+    allowedHeaders: ["Content-Type"],
+    credentials: true
+  }
 });
 
 dotenv.config({
