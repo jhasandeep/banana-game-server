@@ -1,4 +1,3 @@
-
 const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
@@ -12,14 +11,21 @@ const adminRoutes = require("./routes/admin");
 const playerRoutes = require("./routes/player");
 
 const app = express();
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    Credential: true,
+  })
+);
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
-    credentials: true
-  }
+    credentials: true,
+  },
 });
 
 dotenv.config({
@@ -27,13 +33,7 @@ dotenv.config({
 });
 
 mongoose.connect(process.env.MONGO_URI);
-app.use(
-  cors({
-     origin: "*",
-    methods: ["GET", "POST"],
-    Credential: true,
-  })
-);
+
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
@@ -97,11 +97,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/", (req,res)=>{
-
-  res.status(200).json({success:true, message:"hello world"})
-})
-const Port = process.env.PORT || 5000
-server.listen(Port, () =>
-  console.log(`Server running on port ${Port}`)
-);
+app.get("/", (req, res) => {
+  res.status(200).json({ success: true, message: "hello world" });
+});
+const Port = process.env.PORT || 5000;
+server.listen(Port, () => console.log(`Server running on port ${Port}`));
