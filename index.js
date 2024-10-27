@@ -95,6 +95,11 @@ io.on("connection", (socket) => {
   });
 });
 
+app.get("/", (req,res)=>{
+
+  res.status(200).json({success:true, message:"hello world"})
+})
+
 server.listen(process.env.PORT, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
