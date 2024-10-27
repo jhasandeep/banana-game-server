@@ -17,8 +17,9 @@ const io = socketIo(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
-    Credential: true,
-  },
+    allowedHeaders: ["Content-Type"],
+    credentials: true
+  }
 });
 
 dotenv.config({
@@ -28,8 +29,9 @@ dotenv.config({
 mongoose.connect(process.env.MONGO_URI);
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    credentials: true,
+     origin: "*",
+    methods: ["GET", "POST"],
+    Credential: true,
   })
 );
 app.use(express.json());
@@ -95,6 +97,11 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
+app.get("/", (req,res)=>{
+
+  res.status(200).json({success:true, message:"hello world"})
+})
+const Port = process.env.PORT || 5000
+server.listen(Port, () =>
+  console.log(`Server running on port ${Port}`)
 );
