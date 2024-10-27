@@ -15,7 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000", // or "*" for all origins
+    origin: "*"
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true
@@ -29,7 +29,7 @@ dotenv.config({
 mongoose.connect(process.env.MONGO_URI);
 app.use(
   cors({
-     origin: "http://locahost:3000",
+     origin: "*",
     methods: ["GET", "POST"],
     Credential: true,
   })
