@@ -5,10 +5,10 @@ const User = require("../models/User");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  const { username, password, role } = req.body;
   if (!username || !password || !role) {
     return res.status(400).send("Enter details ");
   }
-  const { username, password, role } = req.body;
 
   const isUser = await User.find({ username: username });
 
